@@ -242,19 +242,25 @@
 			animate();
 
 			function init() {
-
+			
 				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
 				camera.position.z = 3000;
 
 				scene = new THREE.Scene();
-
+				
+				if(
+				
 				// table
 
 				for ( let i = 0; i < table.length; i += 5 ) {
 
 					const element = document.createElement( 'div' );
 					element.className = 'element';
-					element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
+					if(table[i].includes(F)){
+						element.style.backgroundColor = 'pink';
+					}else{
+						element.style.backgroundColor = 'blue';
+					}
 
 					const number = document.createElement( 'div' );
 					number.className = 'number';
