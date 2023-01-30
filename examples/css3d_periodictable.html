@@ -89,6 +89,7 @@
 			<button id="sphere">SPHERE</button>
 			<button id="helix">HELIX</button>
 			<button id="grid">GRID</button>
+			<button id="cone">CONE</button>
 		</div>
 
 		<!-- Import maps polyfill -->
@@ -350,6 +351,20 @@
 					targets.grid.push( object );
 
 				}
+				
+				// cone
+
+				for ( let i = 0; i < objects.length; i ++ ) {
+
+					const object = new THREE.Object3D();
+
+					object.position.x = ( ( i % 5 ) * 400 ) - 800;
+					object.position.y = ( - ( Math.floor( i / 5 ) % 5 ) * 400 ) + 800;
+					object.position.z = ( Math.floor( i / 25 ) ) * 1000 - 2000;
+
+					targets.grid.push( object );
+
+				}
 
 				//
 
@@ -386,6 +401,13 @@
 				} );
 
 				const buttonGrid = document.getElementById( 'grid' );
+				buttonGrid.addEventListener( 'click', function () {
+
+					transform( targets.grid, 2000 );
+
+				} );
+				
+				const buttonCone = document.getElementById( 'cone' );
 				buttonGrid.addEventListener( 'click', function () {
 
 					transform( targets.grid, 2000 );
