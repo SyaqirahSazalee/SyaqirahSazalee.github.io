@@ -89,7 +89,7 @@
 			<button id="sphere">SPHERE</button>
 			<button id="helix">HELIX</button>
 			<button id="grid">GRID</button>
-			<button id="cone">CONE</button>
+			<button id="cone">CONE</button> <!-- 5) Add a new button next to “GRID” and label its “CONE” -->
 		</div>
 
 		<!-- Import maps polyfill -->
@@ -112,7 +112,8 @@
 			import { TWEEN } from 'three/addons/libs/tween.module.min.js';
 			import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
 			import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
-
+			
+			// 3)  replace the chemical element with the first name of your friend together with his age & his gender
 			const table = [
 				'Syahirah', '23', 'F', 1, 1,
 				'Radhi', '25', 'M', 18, 1,
@@ -237,7 +238,7 @@
 			let controls;
 
 			const objects = [];
-			const targets = { table: [], sphere: [], helix: [], grid: [] };
+			const targets = { table: [], sphere: [], helix: [], grid: [], cone: [] }; // added cone element
 
 			init();
 			animate();
@@ -257,6 +258,7 @@
 
 					const element = document.createElement( 'div' );
 					element.className = 'element';
+					// 4) if your friend was male, keep it blue. If it was female, turn it pink
 					if(table[i].includes(F)){
 						element.style.backgroundColor = 'pink';
 					}else if(table[i].includes(M)){
@@ -352,17 +354,25 @@
 
 				}
 				
-				// cone
+				// cone 
+				// 6) Produce a Cone shape when the button on step 5 is clicked
 
 				for ( let i = 0; i < objects.length; i ++ ) {
 
+					const theta = i * 4 + Math.PI;
+					const y = - ( i * 12 ) - 450;
+					
 					const object = new THREE.Object3D();
 
-					object.position.x = ( ( i % 5 ) * 400 ) - 800;
-					object.position.y = ( - ( Math.floor( i / 5 ) % 5 ) * 400 ) + 800;
-					object.position.z = ( Math.floor( i / 25 ) ) * 1000 - 2000;
+					object.position.setFromCylindricalCoords(theta, y );
 
-					targets.grid.push( object );
+					vector.x = object.position.x * 2;
+					vector.y = object.position.y;
+					vector.z = object.position.z * 2;
+
+					object.lookAt( vector );
+
+					targets.cone.push( object );
 
 				}
 
@@ -407,10 +417,11 @@
 
 				} );
 				
+				// 6) Button click for cone shape
 				const buttonCone = document.getElementById( 'cone' );
 				buttonGrid.addEventListener( 'click', function () {
 
-					transform( targets.grid, 2000 );
+					transform( targets.cone, 2000 );
 
 				} );
 
