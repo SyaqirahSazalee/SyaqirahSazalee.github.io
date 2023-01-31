@@ -112,7 +112,7 @@
 			import { TWEEN } from 'three/addons/libs/tween.module.min.js';
 			import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
 			import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
-			
+
 			// 3)  replace the chemical element with the first name of your friend together with his age & his gender
 			const table = [
 				'F', 'Syahirah', '23', 1, 1,
@@ -141,7 +141,7 @@
 				'M','Hazeeq', '24', 6, 4,
 				'M','Sham', '26', 7, 4,
 				'F','Aina', '28', 8, 4,
-				'M','Haqeem', '26', 9, 4,
+				'M', 'Haqeem', '26', 9, 4,
 				'M','Afiq', '32', 10, 4,
 				'F','Fatin', '23', 11, 4,
 				'M','Syafiq', '25', 16, 4,
@@ -241,12 +241,12 @@
 			animate();
 
 			function init() {
-			
+
 				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
 				camera.position.z = 3000;
 
 				scene = new THREE.Scene();
-				
+
 				// table
 
 				for ( let i = 0; i < table.length; i += 5 ) {
@@ -255,24 +255,27 @@
 					element.className = 'element';
 					// 4) if your friend was male, keep it blue. If it was female, turn it pink
 					if(table[i].includes("F")){
-						element.style.backgroundColor = 'pink';
+						element.style.backgroundColor = 'lightpink';
 					}else if(table[i].includes("M")){
-						element.style.backgroundColor = 'blue';
+						element.style.backgroundColor = 'lightblue';
 					}
 
 					const number = document.createElement( 'div' );
 					number.className = 'number';
 					number.textContent = ( i / 5 ) + 1;
+					number.style.color = 'black'; // change variable text color to black
 					element.appendChild( number );
 
 					const symbol = document.createElement( 'div' );
 					symbol.className = 'symbol';
 					symbol.textContent = table[ i ];
+					symbol.style.color = 'black'; // change variable text color to black
 					element.appendChild( symbol );
 
 					const details = document.createElement( 'div' );
 					details.className = 'details';
 					details.innerHTML = table[ i + 1 ] + '<br>' + table[ i + 2 ];
+					details.style.color = 'black'; // change variable text color to black
 					element.appendChild( details );
 
 					const objectCSS = new CSS3DObject( element );
@@ -348,18 +351,18 @@
 					targets.grid.push( object );
 
 				}
-				
+
 				// cone 
 				// 6) Produce a Cone shape when the button on step 5 is clicked
 
 				for ( let i = 0; i < objects.length; i ++ ) {
 
 					const theta = i * 4 + Math.PI;
-					const y = - ( i * 12 ) - 450;
-					
+					const y = - ( i * 12 ) + 450;
+
 					const object = new THREE.Object3D();
 
-					object.position.setFromCylindricalCoords(theta, y );
+					object.position.setFromCylindricalCoords( theta, y );
 
 					vector.x = object.position.x * 2;
 					vector.y = object.position.y;
@@ -411,10 +414,10 @@
 					transform( targets.grid, 2000 );
 
 				} );
-				
+
 				// 6) Button click for cone shape
 				const buttonCone = document.getElementById( 'cone' );
-				buttonGrid.addEventListener( 'click', function () {
+				buttonCone.addEventListener( 'click', function () {
 
 					transform( targets.cone, 2000 );
 
